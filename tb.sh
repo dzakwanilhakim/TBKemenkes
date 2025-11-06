@@ -30,4 +30,4 @@ cd TBProfiler
 cd /mnt/d/TBProject
 mkdir TBPore # set your directory name (ex. TBProject)
 cd TBPore
-
+# https://www.ebi.ac.uk/ena/browser/view/ERR9030361
