@@ -13,7 +13,7 @@ conda activate tb_phylo
 mkdir -p /mnt/d/TBPhylo/tb_genomes
 cd /mnt/d/TBPhylo
 
-# 1. Run Parsnp
+# 1. Run Parsnp method: Multi-MUM (Maximal Unique Match)
 # -r → reference genome (H37Rv is recommended for TB)
 # -d → directory with your FASTAs
 # -o → output directory
@@ -31,7 +31,7 @@ fi
 # 3. Trimming
 trimal -in core_alignment.fasta -out core_alignment_trimmed.fasta -automated1
 
-# 4. Phylogenetic tree inference with IQ-TREE
+# 4. Phylogenetic tree inference with IQ-TREE method: Maximum Likelihood
 # -s → input alignment
 # -m GTR+G → substitution model (good for SNPs)or use MFP (ModelFinder Plus)
 # -bb 1000 → ultrafast bootstrap with 1000 replicates
