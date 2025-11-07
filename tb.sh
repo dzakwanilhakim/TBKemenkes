@@ -1,33 +1,19 @@
-# source:   https://github.com/jodyphelan/TBProfiler
-#           https://github.com/mbhall88/tbpore
+# Create a new environment (optional but recommended)
+conda create -n tbpore_env python=3.10 -y
+conda activate tbpore_env
 
-# 1. Instalation of TBprofile and TBPore
-## create environment name tbenv with python 3.11
-conda create -n tbenv python=3.11
-conda activate tbenv
-
-## install tbprofiler
+# Configure channels (if not already)
 conda config --add channels defaults
 conda config --add channels bioconda
 conda config --add channels conda-forge
-conda install -c bioconda tb-profiler
+conda config --set channel_priority strict
 
-## install tbpore
-conda install tbpore
-tbpore download # decontamination
+conda install tbpore=0.7.1 -y
+tbpore download
 
-## initiate a workspace
-cd /mnt/d
-mkdir TBProject # set your workspace name (ex. TBProject)
-cd TBProject
+# run
+tbpore process ERR9030361.fastq.gz
+tbpore cluster ERR9030361.fastq.gz
 
-# 2. Work with TBProfiler (short reads)
-cd /mnt/d/TBProject
-mkdir TBProfiler # set you directory name (ex. TBProfiler)
-cd TBProfiler
 
-# 3. Work With TBPore (long reads)
-cd /mnt/d/TBProject
-mkdir TBPore # set your directory name (ex. TBProject)
-cd TBPore
-# https://www.ebi.ac.uk/ena/browser/view/ERR9030361
+
