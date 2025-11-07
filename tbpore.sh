@@ -1,7 +1,7 @@
 # A. Installation
 # Create a new environment (optional but recommended)
-conda create -n tbpore_env python=3.10 -y
-conda activate tbpore_env
+conda create -n tbpore-env -y
+conda activate tbpore-env
 
 # Configure channels (if not already)
 conda config --add channels defaults
@@ -18,6 +18,18 @@ mkdir /mnt/d/TBPore
 cd /mnt/d/TBPore
 tbpore process ERR9030361.fastq.gz
 tbpore cluster ERR9030361.fastq.gz
+
+# if Terminated, write this in C:users/username/.wslconfig
+[wsl2]
+memory=12GB
+processors=2
+swap=16GB
+localhostForwarding=true
+
+# run this ini powershell
+wsl --shutdown
+wsl
+
 
 
 
