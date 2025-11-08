@@ -18,10 +18,11 @@ tbpore --help
 
 # 4. Download Database
 # check for the internet speed first
-conda install -c conda-forge speedtest-cli -y
+conda install -c conda-forge speedtest-cli pandas openpyxl gdown -y
 speedtest-cli 
 # then, download the database
 tbpore download # if internet stable, it will take time 20m, just press enter if thre is no respons after 20m
+
 
 : << 'COMMENT_BLOCK'
 The output will be like
@@ -39,16 +40,24 @@ COMMENT_BLOCK
 # ============================================================================================
 
 # B. Run
-# Download data fastq.gz from https://drive.google.com/file/d/1Z_DSpIIj9fz_Tos8AJsqfFqk7GHhvSHN/view?usp=drive_link
+# 1. Download data fastq.gz from https://drive.google.com/file/d/1Z_DSpIIj9fz_Tos8AJsqfFqk7GHhvSHN/view?usp=drive_link
 mkdir /mnt/d/TBPore # For Windows
 cd /mnt/d/TBPore # For Windows
 mkdir -p ~/TBPore # For MacOS
 cd ~/TBPore # For MacOS
 
-# Place the data fastq.gz at drive D:\TBpore (Windows) or /Users/yourname/TBPore (MacOS) from File Explorer
+# 2. Place the data fastq.gz at drive D:\TBpore (Windows) or /Users/yourname/TBPore (MacOS) from File Explorer
 
-# Run Process
+# 3. Run Process
 tbpore process SRR35794933.fastq.gz
+
+# 4. download json2xlsx converter
+gdown "https://drive.google.com/uc?id=1OcbhUwv85LWR4c3aI_hNXK7bcS6gD6uf"
+chmod +x json2xlsx
+sed -i 's/\r$//' json2xlsx
+
+# 5. convert mykrobe.json to mykrobe.xlsx
+./json2xlsx SRR35794933.mykrobe.json
 
 #===============================================================================================
 # Troubleshoot (Windows)
