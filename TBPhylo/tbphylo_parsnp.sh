@@ -43,4 +43,10 @@ iqtree -s core_alignment_trimmed.fasta -m GTR+G -bb 1000 -nt AUTO -pre tb_phylo_
 ete3 view -t tb_phylo_trimmed.treefile --image tree.png
 ete3 view -t tb_phylo_trimmed.treefile
 
+# 6. Visualize with Rifampicin Resistant Status
+gdown viewete3
+chmod +x viewete3
+./viewete3 tb_phylo_trimmed.treefile metadata.xlsx
+
+
 
