@@ -1,0 +1,71 @@
+#!/usr/bin/env python3
+
+import sys
+from ete3 import Tree, TreeStyle, NodeStyle, CircleFace
+import pandas as pd
+import os
+
+if len(sys.argv) < 2:
+    print("Usage: ./viewete3 <treefile> [metadata_file]")
+    sys.exit(1)
+
+treefile = sys.argv[1]
+metadata_file = sys.argv[2] if len(sys.argv) > 2 else "metadata.tsv"
+
+if not os.path.exists(treefile):
+    print(f"Error: {treefile} not found!")
+    sys.exit(1)
+
+if not os.path.exists(metadata_file):
+    print(f"Error: {metadata_file} not found!")
+    sys.exit(1)
+
+# Load tree
+tree = Tree(treefile)
+
+# Load metadata
+ext = os.path.splitext(metadata_file)[1].lower()
+if ext in ['.tsv', '.txt']:
+    meta = pd.read_csv(metadata_file, sep="\t")
+elif ext == '.csv':
+    meta = pd.read_csv(metadata_file)
+elif ext == '.xlsx':
+    meta = pd.read_excel(metadata_file)
+else:
+    print(f"Error: Unsupported metadata file format '{ext}'")
+    sys.exit(1)
+
+# Create mapping for leaf labels and colors
+color_map = {'R':'red', 'S':'blue'}
+label_map = {}
+color_node_map = {}
+
+for idx, row in meta.iterrows():
+    fasta_file = os.path.basename(str(row['fasta']))
+    otu_name = str(row['otu_name'])
+    color = color_map.get(str(row['rifampicin']), "black")
+    label_map[fasta_file] = otu_name
+    color_node_map[fasta_file] = color
+
+# Apply labels and colors
+for leaf in tree:
+    leaf_name = os.path.basename(leaf.name)
+    if leaf_name in label_map:
+        leaf.name = label_map[leaf_name]
+        nstyle = NodeStyle()
+        nstyle["fgcolor"] = "black"
+        nstyle["size"] = 0
+        leaf.set_style(nstyle)
+        # add colored dot
+        cf = CircleFace(10, color_node_map[leaf_name])
+        cf.opacity = 1
+        leaf.add_face(cf, column=0, position="branch-right")
+
+# Tree style
+ts = TreeStyle()
+ts.show_leaf_name = True
+ts.show_branch_length = False
+ts.show_branch_support = True
+
+# Show tree
+tree.show(tree_style=ts)
