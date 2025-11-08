@@ -1,5 +1,5 @@
 #tb_genomes/
-#├── H37Rv.fasta          # reference genome (download from NCBI)
+#├── Reference/ H37Rv.fasta          # reference genome (download from NCBI)
 #├── TB1.fasta
 #├── TB2.fasta
 #├── TB3.fasta
@@ -7,18 +7,18 @@
 #└── TB10.fasta
 
 # Install Environment
-conda create -n tb_phylo -c bioconda -c conda-forge parsnp trimal iqtree ete3 harvesttools -y
+conda create -n tb_phylo -c bioconda -c conda-forge parsnp trimal iqtree ete3 harvesttools iqtree2 -y
 conda activate tb_phylo
 
-mkdir -p /mnt/d/TBPhylo/tb_genomes
+mkdir -p /mnt/d/TBPhylo/tb_genomes/Reference
 cd /mnt/d/TBPhylo
 
 # 1. Run Parsnp method: Multi-MUM (Maximal Unique Match)
 # -r → reference genome (H37Rv is recommended for TB)
 # -d → directory with your FASTAs
 # -o → output directory
- #-p → number of CPU threads
-parsnp -r tb_genomes/H37Rv.fasta -d tb_genomes -o tb_parsnp_out -p 2
+#-p → number of CPU threads
+parsnp -r tb_genomes/Reference/H37Rv.fasta -d tb_genomes -o tb_parsnp_out -p 2 # Maxizime usage p 
 
 # 2. Convert .aln to fasta
 # The FASTA alignment is usually already parsnp.aln
@@ -37,10 +37,10 @@ trimal -in core_alignment.fasta -out core_alignment_trimmed.fasta -automated1
 # -bb 1000 → ultrafast bootstrap with 1000 replicates
 # -nt AUTO → auto-detect cores
 # -pre tb_phylo → output prefix
-iqtree2 -s core_alignment_trimmed.fasta -m GTR+G -bb 1000 -nt AUTO -pre tb_phylo_trimmed
+iqtree -s core_alignment_trimmed.fasta -m GTR+G -bb 1000 -nt AUTO -pre tb_phylo_trimmed
 
 # 5. Visualize
-ete3 view tb_phylo_trimmed.treefile
-
+ete3 view -t tb_phylo_trimmed.treefile --image tree.png
+ete3 view -t tb_phylo_trimmed.treefile
 
 
