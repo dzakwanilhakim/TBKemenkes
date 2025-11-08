@@ -7,8 +7,8 @@
 #└── TB10.fasta
 
 # Install Environment
-conda create -n tb_phylo -c bioconda -c conda-forge parsnp trimal iqtree ete3 harvesttools iqtree seqkit -y
-conda activate tb_phylo
+conda create -n tb-phylo -c bioconda -c conda-forge parsnp trimal iqtree ete3 harvesttools iqtree seqkit -y
+conda activate tb-phylo
 
 mkdir -p /mnt/d/TBPhylo/tb_genomes/Reference
 cd /mnt/d/TBPhylo
