@@ -18,7 +18,7 @@ tbpore --help
 
 # 4. Download Database
 # check for the internet speed first
-conda install -c conda-forge speedtest-cli
+conda install -c conda-forge speedtest-cli -y
 speedtest-cli 
 # then, download the database
 tbpore download # Will take time more than 1 hours
