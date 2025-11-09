@@ -13,6 +13,19 @@ conda activate tb-phylo
 mkdir -p /mnt/d/TBPhylo/tb_genomes/Reference
 cd /mnt/d/TBPhylo
 
+# 1. Check for completeness
+for fasta in *.fasta *.fa; do
+    # Skip if no file found
+    [ -e "$fasta" ] || continue
+
+    total=$(seqkit fx2tab -n -s "$fasta" | awk '{sum+=length($2)} END{print sum}')
+    ncount=$(seqkit fx2tab -n -s "$fasta" | awk '{seq=tolower($2); gsub(/[^n]/,"",seq); sum+=length(seq)} END{print sum}')
+    completeness=$(awk -v total="$total" -v n="$ncount" 'BEGIN{if(total>0) printf("%.2f", 100*(total-n)/total); else print "NA"}')
+
+    echo -e "${fasta}\t${total}\t${ncount}\t${completeness}"
+done
+
+
 # 1. Run Parsnp method: Multi-MUM (Maximal Unique Match)
 # -r → reference genome (H37Rv is recommended for TB)
 # -d → directory with your FASTAs
