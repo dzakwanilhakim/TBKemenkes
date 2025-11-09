@@ -11,7 +11,7 @@ conda create -n tb-phylo -c bioconda -c conda-forge parsnp trimal iqtree ete3 ha
 conda activate tb-phylo
 
 mkdir -p /mnt/d/TBPhylo/tb_genomes/Reference
-cd /mnt/d/TBPhylo
+cd /mnt/d/TBPhylo/tb_genomes
 
 # 1. Check for completeness
 for fasta in *.fasta *.fa; do
@@ -25,12 +25,12 @@ for fasta in *.fasta *.fa; do
     echo -e "${fasta}\t${total}\t${ncount}\t${completeness}"
 done
 
-
 # 1. Run Parsnp method: Multi-MUM (Maximal Unique Match)
 # -r → reference genome (H37Rv is recommended for TB)
 # -d → directory with your FASTAs
 # -o → output directory
 #-p → number of CPU threads
+cd..
 parsnp -r tb_genomes/Reference/H37Rv.fasta -d tb_genomes -o tb_parsnp_out -p 2 # Maxizime usage p 
 
 # 2. Convert .aln to fasta
