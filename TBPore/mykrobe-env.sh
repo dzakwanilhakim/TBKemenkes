@@ -1,17 +1,19 @@
 conda create -n mykrobe-env -y
 conda activate mykrobe-env
-conda install mykrobe gdown -y
 
-mykrobe predict sample \
-  --species tb \
-  --input sample.fasta \
-  --format fasta \
-  --output sample_mykrobe.json
+for f in *.fasta *.fa; do
+  [ -e "$f" ] || continue  # skip if no files match
+  sample=$(basename "$f" .fasta)
+  sample=${sample%.fa}  # handle .fa too
+  echo "Processing $sample ..."
+  
+  mykrobe predict "$sample" \
+    --species tb \
+    --input "$f" \
+    --format fasta \
+    --output "${sample}_mykrobe.json"
 
-# 4. download json2xlsx converter
-gdown "https://drive.google.com/uc?id=1OcbhUwv85LWR4c3aI_hNXK7bcS6gD6uf"
-chmod +x json2xlsx
-sed -i 's/\r$//' json2xlsx
+  # Optional: convert to TSV for easy summary
+  mykrobe format "${sample}_mykrobe.json" --format tsv > "${sample}_mykrobe.tsv"
+done
 
-# 5. convert mykrobe.json to mykrobe.xlsx
-./json2xlsx sample_mykrobe.json
