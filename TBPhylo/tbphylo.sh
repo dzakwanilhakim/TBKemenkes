@@ -7,8 +7,9 @@
 #└── TB10.fasta
 
 # Alignment
-echo "1) parsnp"
-parsnp -r tb_genomes/Reference/H37Rv.fasta -d tb_genomes -o tb_parsnp_out -p 2 # Maxizime usage p 
+read -p "Enter number of threads to use: " P
+echo "1) Running parsnp with $P threads"
+parsnp -r tb_genomes/Reference/H37Rv.fasta -d tb_genomes -o tb_parsnp_out -p "$P"
 
 # Convert
 echo "2) Convert"
