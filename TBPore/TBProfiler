@@ -1,0 +1,21 @@
+conda create -n tbprof-env -y
+conda activate tbprof-env
+
+conda config --add channels defaults
+conda config --add channels bioconda
+conda config --add channels conda-forge
+conda install -c bioconda tb-profiler -y
+conda update tb-profiler -y
+
+mkdir -p output_resistant
+for f in *.fasta *.fa; do
+  [ -e "$f" ] || continue
+  sample=$(basename "$f" .fasta)
+  sample=${sample%.fa}
+
+  echo "Processing $sample ..."
+  tb-profiler profile -f "$f" -p "output_resistant/${sample}"
+done
+
+# (Optional) combine all results into one summary table
+tb-profiler collate --dir output_resistant
