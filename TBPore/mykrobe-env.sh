@@ -1,4 +1,5 @@
 conda create -n mykrobe-env -y
+conda activate mykrobe-env
 conda install mykrobe gdown -y
 
 mykrobe predict sample \
