@@ -11,7 +11,7 @@ echo "1) parsnp"
 parsnp -r tb_genomes/Reference/H37Rv.fasta -d tb_genomes -o tb_parsnp_out -p 2 # Maxizime usage p 
 
 # Convert
-echp "2) Convert"
+echo "2) Convert"
 if [ -f tb_parsnp_out/parsnp.aln ]; then
     cp tb_parsnp_out/parsnp.aln core_alignment.fasta
 else
