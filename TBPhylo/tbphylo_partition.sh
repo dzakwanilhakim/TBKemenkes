@@ -9,7 +9,7 @@
 # Alignment
 read -p "Enter number of threads to use (min: 1): " P
 read -p "MSA method (muscle/mafft): " N
-read -p "Partition size (misal 5 partisi, berarti jika  total fasta 500, akan ada 5 batch alignment @ 100fasta: " MIN
+read -p "Partition size (min: 50): " MIN
 echo "1) Running parsnp with $part threads, msa with $msa, partition size $part"
 
 parsnp -r tb_genomes/Reference/H37Rv.fasta \
