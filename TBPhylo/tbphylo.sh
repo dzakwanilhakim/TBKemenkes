@@ -7,18 +7,10 @@
 #└── TB10.fasta
 
 # Alignment
-read -p "Enter number of threads to use (min: 1): " P
-read -p "MSA method (muscle/mafft): " N
-read -p "Partition size (min: 50): " MIN
-echo "1) Running parsnp with $part threads, msa with $msa, partition size $part"
+read -p "Enter number of threads to use: " P
+echo "1) Running parsnp with $P threads"
+parsnp -r tb_genomes/Reference/H37Rv.fasta -d tb_genomes -o tb_parsnp_out -p "$P"
 
-parsnp -r tb_genomes/Reference/H37Rv.fasta \
-       -d tb_genomes \
-       -o tb_parsnp_out \
-       -p $P \
-       -n $N \
-       --min-partition-size $MIN
-       
 # Convert
 echo "2) Convert"
 if [ -f tb_parsnp_out/parsnp.aln ]; then
