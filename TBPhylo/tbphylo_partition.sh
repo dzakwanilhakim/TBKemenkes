@@ -1,5 +1,5 @@
 #!/bin/bash
-#├── Reference/ H37Rv.fasta          # reference genome (download from NCBI)
+#├── Reference/ H37RV.fasta          # reference genome (download from NCBI)
 #├── TB1.fasta
 #├── TB2.fasta
 #├── TB3.fasta
